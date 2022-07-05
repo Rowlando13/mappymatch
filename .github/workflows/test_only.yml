@@ -6,13 +6,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+    
     steps:
     - name: Checkout code
-    - uses: actions/checkout@v3
-    - name: Install dependencies
+      uses: actions/checkout@v3
+    - name: Setup Python 3.8
+      uses: actions/setup-python@v3
+      with: 
+        python-version: 3.8
+    - name: Add conda to system path
       run: |
-        python -m pip install --upgrade pip
-        pip install black flake8 mypy isort types-requests
-    - name: Run black
-      if: always()
-      run: black mappymatch tests --check
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        echo $CONDA/bin >> $GITHUB_PATH
+    - name: Install dependencies
+      run: | 
+        conda env update --file environment_test.yml --name base
+    - name: Run tests. 
+      run: |
+        unittest discover
