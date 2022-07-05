@@ -1,0 +1,17 @@
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - osmnx
+  - geopandas
+  - shapely
+  - rtree
+  - pyproj
+  - pandas
+  - numpy
+  - matplotlib
+  - folium
+  - requests
+  - pip
+
+
